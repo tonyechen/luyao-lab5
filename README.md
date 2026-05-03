@@ -103,7 +103,14 @@ NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_FUUXwxtKrQPhM2zxsjo4xg_iCkPF
 
 ## A.3 — System Map
 
-Pain points are dashed-red boxes; touchpoints are purple boxes. (Renders inline on GitHub. Raw Mermaid source: [`docs/diagrams/component-a-system-map.mmd`](./docs/diagrams/component-a-system-map.mmd).)
+Pain points are dashed-red boxes; touchpoints are purple boxes.
+
+- **Rendered SVG:** [`docs/diagrams/component-a-system-map.svg`](./docs/diagrams/component-a-system-map.svg)
+- **Raw Mermaid source:** [`docs/diagrams/component-a-system-map.mmd`](./docs/diagrams/component-a-system-map.mmd)
+
+![Component A — System Map](./docs/diagrams/component-a-system-map.svg)
+
+The same diagram in live Mermaid (renders inline on GitHub):
 
 ```mermaid
 flowchart TB
@@ -243,7 +250,12 @@ The full DDL plus 8 sample rows per table lives in [`scripts/schema.sql`](./scri
 
 ## C.2 — 3-tier diagram (for the Component B app)
 
-Raw Mermaid source: [`docs/diagrams/component-c-3tier.mmd`](./docs/diagrams/component-c-3tier.mmd).
+- **Rendered SVG:** [`docs/diagrams/component-c-3tier.svg`](./docs/diagrams/component-c-3tier.svg)
+- **Raw Mermaid source:** [`docs/diagrams/component-c-3tier.mmd`](./docs/diagrams/component-c-3tier.mmd)
+
+![Component C — 3-tier diagram](./docs/diagrams/component-c-3tier.svg)
+
+The same diagram in live Mermaid:
 
 ```mermaid
 flowchart LR
@@ -349,7 +361,12 @@ The events feature lives at `/events` in the same Next.js app and reads from the
 
 ## E.1 — System Architecture Map (with boundary labels)
 
-Raw Mermaid source: [`docs/diagrams/component-e-architecture.mmd`](./docs/diagrams/component-e-architecture.mmd).
+- **Rendered SVG:** [`docs/diagrams/component-e-architecture.svg`](./docs/diagrams/component-e-architecture.svg)
+- **Raw Mermaid source:** [`docs/diagrams/component-e-architecture.mmd`](./docs/diagrams/component-e-architecture.mmd)
+
+![Component E — System architecture map](./docs/diagrams/component-e-architecture.svg)
+
+The same diagram in live Mermaid:
 
 ```mermaid
 flowchart LR

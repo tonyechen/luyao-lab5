@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "contract-test": "node scripts/contract-test.mjs",
-    "screenshot": "node scripts/screenshot.mjs"
+    "render-diagrams": "node scripts/render-diagrams.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.0",
