@@ -1,0 +1,61 @@
+%%{init: {'theme':'base', 'themeVariables': {'fontFamily':'sans-serif'}}}%%
+flowchart TB
+  classDef person fill:#dbeafe,stroke:#1e40af,color:#1e3a8a;
+  classDef pain fill:#fee2e2,stroke:#b91c1c,color:#991b1b,stroke-width:2px,stroke-dasharray:4 2;
+  classDef system fill:#ecfccb,stroke:#65a30d,color:#365314;
+  classDef external fill:#fef3c7,stroke:#b45309,color:#78350f;
+  classDef tp fill:#ede9fe,stroke:#6d28d9,color:#4c1d95,stroke-width:2px;
+
+  subgraph People["People"]
+    Maason[Maason - IT]:::person
+    Kevin[Kevin - Maker Space]:::person
+    Allan[Allan]:::person
+    Team[Student Team Rep]:::person
+  end
+
+  subgraph Systems["Systems and Tools"]
+    BlueTally[(Blue Tally\nasset DB)]:::system
+    PowerAuto[Power Automate\noverdue email script]:::system
+    Stickers[UW Barcode\nsticker rolls x2]:::system
+    Amazon[Amazon order\ndescriptions]:::external
+    PurchaseList[Purchase List\nspreadsheet]:::system
+    Table3F[3rd Floor Return Table]:::system
+  end
+
+  Allan -->|wrote| PowerAuto
+  PowerAuto -->|sends overdue email| Team
+
+  Team -->|"TP1: brings equipment"| Table3F
+  Table3F -->|verify against| PurchaseList
+  PurchaseList -->|then verify against| BlueTally
+
+  Maason -->|manually types| BlueTally
+  Kevin -->|manually types| BlueTally
+  Maason -->|sticks barcode on| Stickers
+  Kevin -->|sticks barcode on| Stickers
+  Stickers -->|pre-filled IDs| BlueTally
+
+  Amazon -->|"long titles paste into"| BlueTally
+
+  %% Pain points
+  PP1["PAIN: Checking twice\n(purchase list AND Blue Tally)"]:::pain
+  PP2["PAIN: Manual one-by-one entry\ntakes a long time"]:::pain
+  PP3["PAIN: Amazon descriptions\npollute product names"]:::pain
+  PP4["PAIN: Multi-part items\n(camera kits) lose pieces"]:::pain
+  PP5["PAIN: Items left on desks\nverification gaps"]:::pain
+  PP6["PAIN: Sticker-roll IDs collide\npre-filled ID often wrong"]:::pain
+
+  PurchaseList -.-> PP1
+  BlueTally -.-> PP1
+  BlueTally -.-> PP2
+  Amazon -.-> PP3
+  Table3F -.-> PP4
+  Table3F -.-> PP5
+  Stickers -.-> PP6
+
+  %% Touchpoints
+  TP1["TOUCHPOINT 1\nWho: Student team rep\nWhat: hands equipment over\nDevice: phone (walking between buildings)"]:::tp
+  TP2["TOUCHPOINT 2\nWho: Maason / Kevin\nWhat: types asset metadata into Blue Tally\nDevice: desktop at desk during return week"]:::tp
+
+  Team -.-> TP1
+  Maason -.-> TP2

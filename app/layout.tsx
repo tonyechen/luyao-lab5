@@ -1,0 +1,17 @@
+import type { Metadata } from "next";
+import "./globals.css";
+
+export const metadata: Metadata = {
+  title: "TECHIN 510 Lab 5 — Equipment + Events",
+  description: "Next.js + Supabase + Open-Meteo demo for TECHIN 510 Week 5.",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
+  return (
+    <html lang="en" className="h-full antialiased">
+      <body className="min-h-full flex flex-col">{children}</body>
+    </html>
+  );
+}

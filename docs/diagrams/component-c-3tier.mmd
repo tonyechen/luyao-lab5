@@ -1,0 +1,34 @@
+%%{init: {'theme':'base', 'themeVariables': {'fontFamily':'sans-serif'}}}%%
+flowchart LR
+  classDef tier fill:#f1f5f9,stroke:#475569,color:#0f172a,stroke-width:2px;
+  classDef ext fill:#fef3c7,stroke:#b45309,color:#78350f;
+
+  subgraph T1["Tier 1: Browser (Client)"]
+    Page1["app/page.tsx\nReact Server Component\n+ ReturnButton (client)"]
+    Page2["app/events/page.tsx\nServer Component\n+ CategoryFilter (client)"]
+  end
+  class T1 tier
+
+  subgraph T2["Tier 2: Next.js Server (Logic)"]
+    APIw["api/weather/route.ts\nfetches Open-Meteo\nruns assertWeatherShape"]
+    APIc["api/checkouts/route.ts\nUPDATE returned_at"]
+    SBclient["lib/supabase.ts\nSELECT checkouts / events"]
+  end
+  class T2 tier
+
+  subgraph T3["Tier 3: Supabase (Data)"]
+    Tcheck[("checkouts\nid, student_name, item,\nchecked_out_at, due_at, returned_at")]
+    Tevent[("events\nid, title, description,\ncategory, starts_at, location")]
+  end
+  class T3 tier
+
+  OM["Open-Meteo\napi.open-meteo.com\n(no auth)"]:::ext
+
+  T1 -->|"HTTP GET / POST (JSON)"| T2
+  T2 -->|"HTML / JSON responses"| T1
+
+  T2 -->|"SQL via PostgREST\nSELECT, UPDATE"| T3
+  T3 -->|"Query results (rows)"| T2
+
+  APIw -->|"HTTP GET\nJSON"| OM
+  OM -->|"daily forecast JSON"| APIw

@@ -1,0 +1,35 @@
+%%{init: {'theme':'base', 'themeVariables': {'fontFamily':'sans-serif'}}}%%
+flowchart LR
+  classDef tier fill:#f1f5f9,stroke:#475569,color:#0f172a,stroke-width:2px;
+  classDef boundary fill:#fef9c3,stroke:#a16207,color:#713f12,font-style:italic;
+
+  subgraph U["User"]
+    Person["GIX student\nbrowsing events"]
+  end
+  class U tier
+
+  subgraph T1["Tier 1: Browser"]
+    Events["app/events/page.tsx\n+ CategoryFilter"]
+  end
+  class T1 tier
+
+  subgraph T2["Tier 2: Next.js server (RSC)"]
+    Fetch["fetchEvents()\nassertEventsArray + assertEventShape"]
+  end
+  class T2 tier
+
+  subgraph T3["Tier 3: Supabase"]
+    Tevent[("events table")]
+  end
+  class T3 tier
+
+  B1["Boundary A\nFormat: HTTP (URL ?category=...)\nLikely error: malformed query string"]:::boundary
+  B2["Boundary B\nFormat: HTML (rendered RSC)\nLikely error: server timeout / 500"]:::boundary
+  B3["Boundary C\nFormat: SQL via PostgREST (HTTPS + JWT)\nLikely error: 401 invalid key / RLS blocks read"]:::boundary
+  B4["Boundary D\nFormat: JSON rows\nLikely error: schema drift (missing field) caught by assertEventShape"]:::boundary
+
+  Person -->|click filter| B1 --> Events
+  Events -->|render| B2 --> Person
+  Events --> Fetch
+  Fetch -->|select * from events| B3 --> Tevent
+  Tevent -->|rows| B4 --> Fetch
