@@ -1,6 +1,6 @@
 # TECHIN 510 — Week 5 Lab: APIs, Databases & Full-Stack Transition
 
-- **Live deploy:** _add your Vercel URL here after the Import step below_
+- **Live deploy:** https://luyao-lab5-tonyechen-3crmra0at-tonyechens-projects.vercel.app/ (events page: [`/events`](https://luyao-lab5-tonyechen-3crmra0at-tonyechens-projects.vercel.app/events))
 - **Lab manual:** [`lab-manual.md`](./lab-manual.md)
 
 ---
@@ -22,7 +22,7 @@ npm run contract-test     # Component D contract test
 1. Push this repo to GitHub.
 2. https://vercel.com/new → **Import** the repo.
 3. Paste the env vars from [Grading Submission](#grading-submission--supabase-keys) below.
-4. **Deploy**, then put the URL into the "Live deploy" line above.
+4. **Deploy**.
 
 ## Grading Submission — Supabase keys
 
@@ -132,7 +132,7 @@ Two tables, both seeded by [`scripts/schema.sql`](./scripts/schema.sql). RLS off
 
 ## Deployment URL
 
-Live deploy: _added at the top of this README after the Import step_. No secrets exposed — only `NEXT_PUBLIC_*` env vars are wired into Vercel; the publishable key cannot bypass RLS.
+Live deploy: <https://luyao-lab5-tonyechen-3crmra0at-tonyechens-projects.vercel.app/> — same Vercel deployment serves both the Component B checkouts dashboard at `/` and the Component E events UI at `/events`. No secrets exposed — only `NEXT_PUBLIC_*` env vars are wired into Vercel; the publishable key cannot bypass RLS.
 
 ## Security Checklist
 

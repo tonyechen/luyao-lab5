@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
+import { assertWeatherShape } from "@/lib/asserts";
 import { ReturnButton } from "./return-button";
 
 type Checkout = {
@@ -27,18 +28,23 @@ async function fetchCheckouts(): Promise<{ rows: Checkout[]; error: string | nul
 }
 
 async function fetchWeather(): Promise<{ days: WeatherDay[]; error: string | null }> {
+  const url = new URL("https://api.open-meteo.com/v1/forecast");
+  url.searchParams.set("latitude", "47.61");
+  url.searchParams.set("longitude", "-122.33");
+  url.searchParams.set("daily", "temperature_2m_max,temperature_2m_min");
+  url.searchParams.set("timezone", "America/Los_Angeles");
+  url.searchParams.set("forecast_days", "3");
   try {
-    // Build absolute URL for server-side fetch in Next.js
-    const base = process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : "http://localhost:3000";
-    const res = await fetch(`${base}/api/weather`, { next: { revalidate: 600 } });
-    if (!res.ok) {
-      const body = await res.json().catch(() => ({}));
-      return { days: [], error: body?.error ?? `Weather API returned ${res.status}` };
-    }
-    const json = await res.json();
-    return { days: (json.days as WeatherDay[]) ?? [], error: null };
+    const res = await fetch(url, { next: { revalidate: 600 } });
+    if (!res.ok) return { days: [], error: `Open-Meteo returned ${res.status}` };
+    const data = await res.json();
+    assertWeatherShape(data);
+    const days: WeatherDay[] = data.daily.time.map((t: string, i: number) => ({
+      date: t,
+      max: data.daily.temperature_2m_max[i],
+      min: data.daily.temperature_2m_min[i],
+    }));
+    return { days, error: null };
   } catch (err) {
     return { days: [], error: err instanceof Error ? err.message : "Unknown error" };
   }
